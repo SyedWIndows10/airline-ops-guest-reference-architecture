@@ -1,0 +1,50 @@
+version: "3.8"
+
+# Local dev stack: Redpanda (Kafka-API-compatible event backbone) + Postgres (ODS).
+# Redpanda is used instead of Kafka+Zookeeper to keep the local dev loop to a single
+# container with no JVM/Zookeeper overhead, while remaining wire-compatible with
+# kafkajs and any other Kafka client the services use.
+
+services:
+  redpanda:
+    image: redpandadata/redpanda:v24.1.1
+    container_name: airline-redpanda
+    command:
+      - redpanda
+      - start
+      - --smp=1
+      - --overprovisioned
+      - --node-id=0
+      - --kafka-addr=PLAINTEXT://0.0.0.0:9092
+      - --advertise-kafka-addr=PLAINTEXT://redpanda:9092
+      - --pandaproxy-addr=0.0.0.0:8082
+      - --advertise-pandaproxy-addr=localhost:8082
+    ports:
+      - "9092:9092"
+      - "8082:8082"
+      - "9644:9644" # admin API / Redpanda Console health
+
+  redpanda-console:
+    image: redpandadata/console:v2.7.0
+    container_name: airline-redpanda-console
+    environment:
+      KAFKA_BROKERS: redpanda:9092
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redpanda
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: airline-ods-postgres
+    environment:
+      POSTGRES_USER: airline_ops
+      POSTGRES_PASSWORD: airline_ops_dev_only
+      POSTGRES_DB: ods
+    ports:
+      - "5432:5432"
+    volumes:
+      - ods-data:/var/lib/postgresql/data
+
+volumes:
+  ods-data:
