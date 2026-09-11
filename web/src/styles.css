@@ -53,3 +53,11 @@ th, td {
 .badge.AT_RISK { background: #fff4d6; color: #9a6a00; }
 .badge.ILLEGAL_REQUIRES_REPLACEMENT, .badge.FLIGHT_CANCELLED { background: #fde3e3; color: #a11616; }
 .badge.FLIGHT_DIVERTED { background: #e6e9ff; color: #38399e; }
+
+.guest-card {
+  background: white;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}

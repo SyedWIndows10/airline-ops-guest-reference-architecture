@@ -1,0 +1,26 @@
+<h1>Guest Notifications</h1>
+<p>
+  Simulated guest-facing view of <code>guest.itinerary-reaccommodated.v1</code> — note there is no tail number,
+  crew data, or technical fault code anywhere on this page (see <code>docs/03-adr/0002-guest-domain-never-subscribes-to-raw-ops-events.md</code>).
+</p>
+
+<div *ngFor="let n of notifications$ | async" class="guest-card">
+  <h3>
+    Flight {{ n.originalFlightNumber }} — {{ n.originalFlightDate }}
+    <span class="badge {{ n.disruptionSummary }}">{{ n.disruptionSummary }}</span>
+  </h3>
+  <p>Guest: {{ n.guestId }}</p>
+  <table>
+    <thead>
+      <tr><th>Option</th><th>Flight</th><th>Departs</th><th>Arrives</th></tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let o of n.rebookingOptions">
+        <td>{{ o.optionId }}</td>
+        <td>{{ o.flightNumber }}</td>
+        <td>{{ o.departureTime | date: 'short' }}</td>
+        <td>{{ o.arrivalTime | date: 'short' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
