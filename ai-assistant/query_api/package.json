@@ -1,0 +1,12 @@
+{
+  "name": "@airline-ops/ai-assistant-query-api",
+  "version": "1.0.0",
+  "description": "RAG query API over the mock SOP vector store built by ../ingest_manuals.py. Enforces citation and audit-log guardrails — see ../guardrails.md.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
