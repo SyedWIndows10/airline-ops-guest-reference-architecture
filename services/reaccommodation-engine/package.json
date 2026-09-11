@@ -1,0 +1,12 @@
+{
+  "name": "@airline-ops/reaccommodation-engine",
+  "version": "1.0.0",
+  "description": "Subscribes to flight.disrupted.v1 and generates mock rebooking options, publishing an internal ops.reaccommodation-generated event consumed by guest-translation-layer. Real seat/fare inventory optimization is out of scope — see docs/02-solution-intent-irops.md.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@airline-ops/shared": "file:../shared"
+  }
+}

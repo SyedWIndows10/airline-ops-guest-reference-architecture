@@ -1,0 +1,12 @@
+{
+  "name": "@airline-ops/engineering-defect-linker",
+  "version": "1.0.0",
+  "description": "Thin stub: subscribes to flight.disrupted.v1 (MECHANICAL type) and logs a correlation to a mock defect record. Full MEL/maintenance-system integration is out of scope for this reference implementation — see docs/02-solution-intent-irops.md.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@airline-ops/shared": "file:../shared"
+  }
+}
