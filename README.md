@@ -16,7 +16,7 @@ ops-event-publisher → Kafka/Redpanda → crew-impact-evaluator
                                      → etl (ODS + lakehouse) → web/ops-dashboard
 ```
 
-See [docs/01-capability-map.md](docs/01-capability-map.md) for the full capability breakdown and [docs/02-solution-intent-irops.md](docs/02-solution-intent-irops.md) for the primary flow diagram.
+See [docs/01-capability-map.md](docs/01-capability-map.md) for the full capability breakdown, [docs/02-solution-intent-irops.md](docs/02-solution-intent-irops.md) for the primary flow, and [docs/diagrams/](docs/diagrams/) for the context, container, and sequence diagrams.
 
 ## Why three languages (Angular / Node.js / Python)
 
