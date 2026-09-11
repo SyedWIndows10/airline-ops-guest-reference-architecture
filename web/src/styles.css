@@ -1,0 +1,55 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+  color: #1a1f24;
+}
+
+.app-shell {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+nav.app-nav {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 1.5rem;
+  background: #0b1f3a;
+}
+
+nav.app-nav a {
+  color: #cfe0ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+nav.app-nav a.active {
+  color: #ffffff;
+  border-bottom: 2px solid #4d8dff;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+  text-align: left;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid #e5e8eb;
+}
+
+.badge {
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.badge.LEGAL, .badge.FLIGHT_DELAYED { background: #e3f7e8; color: #1e7a34; }
+.badge.AT_RISK { background: #fff4d6; color: #9a6a00; }
+.badge.ILLEGAL_REQUIRES_REPLACEMENT, .badge.FLIGHT_CANCELLED { background: #fde3e3; color: #a11616; }
+.badge.FLIGHT_DIVERTED { background: #e6e9ff; color: #38399e; }

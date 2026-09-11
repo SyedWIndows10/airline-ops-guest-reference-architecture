@@ -1,0 +1,27 @@
+<h1>Ops Dashboard</h1>
+<p>Near-real-time view of the ODS (<code>flight_disruption_current</code>), fed by <code>etl/ingest_events_to_lakehouse.py</code>.</p>
+
+<table *ngIf="disruptions$ | async as disruptions">
+  <thead>
+    <tr>
+      <th>Flight</th>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Reason</th>
+      <th>Delay (min)</th>
+      <th>Pax</th>
+      <th>Crew Legality</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let d of disruptions">
+      <td>{{ d.flightNumber }}</td>
+      <td>{{ d.flightDate }}</td>
+      <td>{{ d.disruptionType }}</td>
+      <td>{{ d.disruptionReasonCode }}</td>
+      <td>{{ d.estimatedDelayMinutes ?? '—' }}</td>
+      <td>{{ d.affectedPassengerCount ?? '—' }}</td>
+      <td><span class="badge {{ d.legalityStatus }}">{{ d.legalityStatus }}</span></td>
+    </tr>
+  </tbody>
+</table>
