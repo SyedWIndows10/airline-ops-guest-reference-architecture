@@ -1,0 +1,12 @@
+{
+  "name": "@airline-ops/notification-dispatcher",
+  "version": "1.0.0",
+  "description": "Subscribes to guest.itinerary-reaccommodated.v1 and fans out to app/SMS/email channels. Channel sends are stubbed (console log) — see docs/06-first-90-days.md for what a production outbox-pattern implementation would add.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@airline-ops/shared": "file:../shared"
+  }
+}
