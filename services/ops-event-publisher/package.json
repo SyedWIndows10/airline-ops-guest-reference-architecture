@@ -1,0 +1,12 @@
+{
+  "name": "@airline-ops/ops-event-publisher",
+  "version": "1.0.0",
+  "description": "Simulates the OCC publishing flight.disrupted.v1 events onto the event backbone.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@airline-ops/shared": "file:../shared"
+  }
+}
