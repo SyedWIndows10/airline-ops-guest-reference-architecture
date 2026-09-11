@@ -1,0 +1,12 @@
+{
+  "name": "@airline-ops/guest-translation-layer",
+  "version": "1.0.0",
+  "description": "The single, deliberate boundary between the Ops domain and the Guest domain (ADR 0002). Subscribes to internal ops.reaccommodation-generated events and republishes as guest.itinerary-reaccommodated.v1 — no other guest-facing service is permitted to subscribe to an Ops-domain topic.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@airline-ops/shared": "file:../shared"
+  }
+}
