@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://airline-ops-guest-reference-architecture/schemas/flight.disrupted.v1.schema.json",
+  "title": "flight.disrupted.v1",
+  "description": "Published by ops-event-publisher when the OCC classifies a flight as disrupted. This is the single authoritative Ops-domain event that triggers the entire fan-out.",
+  "type": "object",
+  "required": [
+    "eventId",
+    "correlationId",
+    "eventTime",
+    "flightNumber",
+    "flightDate",
+    "originAirport",
+    "destinationAirport",
+    "disruptionType",
+    "disruptionReasonCode",
+    "tailNumber"
+  ],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for this specific event instance."
+    },
+    "correlationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identifier shared by every event caused by this disruption, across all downstream topics."
+    },
+    "eventTime": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 UTC timestamp when the disruption was classified."
+    },
+    "flightNumber": { "type": "string", "pattern": "^[A-Z]{2}[0-9]{1,4}$" },
+    "flightDate": { "type": "string", "format": "date" },
+    "originAirport": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "destinationAirport": { "type": "string", "pattern": "^[A-Z]{3}$" },
+    "tailNumber": { "type": "string" },
+    "disruptionType": {
+      "type": "string",
+      "enum": ["DELAY", "CANCELLATION", "DIVERSION", "MECHANICAL"]
+    },
+    "disruptionReasonCode": {
+      "type": "string",
+      "description": "IATA-style delay/cancellation reason code (mocked in this reference implementation)."
+    },
+    "estimatedDelayMinutes": { "type": "integer", "minimum": 0 },
+    "affectedPassengerCount": { "type": "integer", "minimum": 0 }
+  },
+  "additionalProperties": false
+}

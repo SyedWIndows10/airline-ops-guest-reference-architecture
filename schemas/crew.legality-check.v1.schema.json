@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://airline-ops-guest-reference-architecture/schemas/crew.legality-check.v1.schema.json",
+  "title": "crew.legality-check.v1",
+  "description": "Published by crew-impact-evaluator after evaluating a flight.disrupted.v1 event against (stubbed) Flight Time Limitation rules.",
+  "type": "object",
+  "required": [
+    "eventId",
+    "correlationId",
+    "eventTime",
+    "flightNumber",
+    "flightDate",
+    "legalityStatus"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "correlationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Matches the correlationId of the flight.disrupted.v1 event that triggered this evaluation."
+    },
+    "eventTime": { "type": "string", "format": "date-time" },
+    "flightNumber": { "type": "string" },
+    "flightDate": { "type": "string", "format": "date" },
+    "legalityStatus": {
+      "type": "string",
+      "enum": ["LEGAL", "AT_RISK", "ILLEGAL_REQUIRES_REPLACEMENT"]
+    },
+    "affectedCrewCount": { "type": "integer", "minimum": 0 },
+    "notes": { "type": "string" }
+  },
+  "additionalProperties": false
+}

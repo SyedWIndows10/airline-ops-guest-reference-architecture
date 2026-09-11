@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://airline-ops-guest-reference-architecture/schemas/guest.itinerary-reaccommodated.v1.schema.json",
+  "title": "guest.itinerary-reaccommodated.v1",
+  "description": "Published by guest-translation-layer. This is the only Guest-domain view of a disruption — it contains no Ops-domain fields (no tail numbers, crew data, or technical fault codes). See ADR 0002.",
+  "type": "object",
+  "required": [
+    "eventId",
+    "correlationId",
+    "eventTime",
+    "guestId",
+    "originalFlightNumber",
+    "originalFlightDate",
+    "disruptionSummary",
+    "rebookingOptions"
+  ],
+  "properties": {
+    "eventId": { "type": "string", "format": "uuid" },
+    "correlationId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Traces back to the originating flight.disrupted.v1 event for audit purposes, but is never exposed to the guest."
+    },
+    "eventTime": { "type": "string", "format": "date-time" },
+    "guestId": { "type": "string" },
+    "originalFlightNumber": { "type": "string" },
+    "originalFlightDate": { "type": "string", "format": "date" },
+    "disruptionSummary": {
+      "type": "string",
+      "enum": ["FLIGHT_DELAYED", "FLIGHT_CANCELLED", "FLIGHT_DIVERTED"],
+      "description": "Guest-facing categorization, deliberately coarser than the Ops-domain disruptionType."
+    },
+    "rebookingOptions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["optionId", "flightNumber", "departureTime", "arrivalTime"],
+        "properties": {
+          "optionId": { "type": "string" },
+          "flightNumber": { "type": "string" },
+          "departureTime": { "type": "string", "format": "date-time" },
+          "arrivalTime": { "type": "string", "format": "date-time" }
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}
