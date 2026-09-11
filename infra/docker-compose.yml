@@ -1,9 +1,16 @@
-version: "3.8"
-
 # Local dev stack: Redpanda (Kafka-API-compatible event backbone) + Postgres (ODS).
 # Redpanda is used instead of Kafka+Zookeeper to keep the local dev loop to a single
 # container with no JVM/Zookeeper overhead, while remaining wire-compatible with
 # kafkajs and any other Kafka client the services use.
+#
+# `name:` is set explicitly (rather than left to default to the "infra" directory
+# name) because Compose matches existing containers by project+service label, not
+# by container_name — an unnamed project here previously collided with an unrelated
+# project that also happened to keep its compose file in a directory named "infra"
+# with a service also named "postgres", and Compose recreated that project's live
+# container under this file's config. Never omit `name:` on a compose file that
+# lives in a genericly-named directory like infra/.
+name: airline-ops-guest-reference-architecture
 
 services:
   redpanda:
