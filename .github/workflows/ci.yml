@@ -1,0 +1,45 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  node-services:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: cd services/shared && npm install
+      - run: cd services/shared && npm test --if-present
+
+  python-etl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: cd etl && pip install -r requirements.txt
+      - run: cd etl && python -m py_compile *.py
+
+  ai-assistant:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: cd ai-assistant && python ingest_manuals.py
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: cd ai-assistant/query_api && npm install
+      - run: |
+          cd ai-assistant/query_api
+          node -e "require('./answer').answerQuestion('How soon must guests be notified of a major delay?').then(r => { if (!r.grounded) process.exit(1); console.log(r.answer); })"
+
+  angular-web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '20' }
+      - run: cd web && npm install
+      - run: cd web && npm run build
