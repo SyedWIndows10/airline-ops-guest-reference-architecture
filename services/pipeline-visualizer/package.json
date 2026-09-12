@@ -1,0 +1,13 @@
+{
+  "name": "@airline-ops/pipeline-visualizer",
+  "version": "1.0.0",
+  "description": "Taps every event topic on the bus and streams them over WebSocket to a live diagram of the fan-out pipeline (docs/diagrams/container-diagram.md). Observability/demo tool, not part of the production event flow.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@airline-ops/shared": "file:../shared",
+    "ws": "^8.21.3"
+  }
+}

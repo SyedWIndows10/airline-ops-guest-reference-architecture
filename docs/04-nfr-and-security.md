@@ -31,9 +31,9 @@ This reference implementation demonstrates the pattern; it does not implement ev
 
 ## Observability
 
-Not built in this reference implementation, but required for production:
-- Consumer lag dashboards per consumer group (Redpanda Console, included in `infra/docker-compose.yml`, gives a local preview of this)
-- Correlation-ID-based distributed tracing across the full fan-out (every event already carries `correlationId` — see `schemas/README.md` — which is what a tracing implementation would key on)
+Not built to production standard in this reference implementation, but partially previewed:
+- Consumer lag dashboards per consumer group — Redpanda Console (`infra/docker-compose.yml`) gives a local preview of this
+- Correlation-ID-based distributed tracing across the full fan-out — `services/pipeline-visualizer` is a small working preview: it taps every topic and animates the same `correlationId` moving through the actual fan-out topology in a browser, in place of a real tracing backend (Jaeger/Zipkin/OpenTelemetry Collector in production)
 - Data quality check results (`etl/data_quality_checks.py`) wired into an alerting channel rather than exit-code-only
 
 ## Compliance considerations (documented, not implemented)

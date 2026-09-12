@@ -44,6 +44,7 @@ See [docs/02-solution-intent-irops.md](docs/02-solution-intent-irops.md) for the
 | [web/](web/) | Angular OCC dashboard and guest notification viewer |
 | [ai-assistant/](ai-assistant/) | RAG-based SOP assistant with citation/guardrails |
 | [infra/](infra/) | Local dev stack (docker-compose: Redpanda, Postgres) |
+| [services/pipeline-visualizer/](services/pipeline-visualizer/) | Live browser diagram of the fan-out, animated from real bus traffic |
 
 ## Running it locally
 
