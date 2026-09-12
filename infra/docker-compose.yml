@@ -22,12 +22,19 @@ services:
       - --smp=1
       - --overprovisioned
       - --node-id=0
-      - --kafka-addr=PLAINTEXT://0.0.0.0:9092
-      - --advertise-kafka-addr=PLAINTEXT://redpanda:9092
+      # Dual listeners: "internal" is reachable at the redpanda:9092 Docker-network
+      # hostname (used by redpanda-console, which runs in the same network) and
+      # "external" is advertised as localhost:9092 for host-side clients (the
+      # services/* Node processes, which run on the host, not in Docker). Kafka's
+      # protocol has the client reconnect to whatever address the broker
+      # advertises after the initial handshake, so a single listener can only ever
+      # serve one of those two audiences correctly.
+      - --kafka-addr=internal://0.0.0.0:9092,external://0.0.0.0:9093
+      - --advertise-kafka-addr=internal://redpanda:9092,external://localhost:9092
       - --pandaproxy-addr=0.0.0.0:8082
       - --advertise-pandaproxy-addr=localhost:8082
     ports:
-      - "9092:9092"
+      - "9092:9093" # host 9092 -> container's "external" listener, matching the advertised address above
       - "8082:8082"
       - "9644:9644" # admin API / Redpanda Console health
 
