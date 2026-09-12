@@ -1,0 +1,24 @@
+<div class="pv-header">
+  <h2>IROPS Pipeline — Live Fan-Out</h2>
+  <span class="pv-status" [class.connected]="connected" [class.disconnected]="!connected">
+    {{ connected ? 'connected' : 'connecting…' }}
+  </span>
+</div>
+<p class="pv-hint">
+  Live view of <code>services/pipeline-visualizer</code>'s WebSocket bridge — every disruption's
+  <code>correlationId</code> is traced as a colored dot across the actual fan-out. Requires the
+  infra stack and pipeline-visualizer backend running (<code>cd services/pipeline-visualizer &amp;&amp; npm start</code>).
+</p>
+
+<div class="pv-main">
+  <div class="pv-diagram">
+    <svg #edgesEl class="pv-edges"></svg>
+    <div #nodesEl class="pv-nodes"></div>
+    <div #dotsEl class="pv-dots"></div>
+  </div>
+
+  <aside class="pv-feed">
+    <h3>Event feed</h3>
+    <div #feedListEl class="pv-feed-list"></div>
+  </aside>
+</div>

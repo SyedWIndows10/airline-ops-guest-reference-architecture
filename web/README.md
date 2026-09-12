@@ -9,6 +9,7 @@ npm start   # ng serve, http://localhost:4200
 
 - `src/app/ops-dashboard/` — near-real-time view of the ODS (`flight_disruption_current`), the operations-facing side of the demo.
 - `src/app/guest-notifications/` — simulated guest-facing view of `guest.itinerary-reaccommodated.v1` events.
+- `src/app/pipeline-visualizer/` — live diagram of the actual event fan-out, driven by real bus traffic over a WebSocket connection to `services/pipeline-visualizer` (not mocked — see that service's README to run the bridge).
 - `src/app/shared/` — shared models (mirroring the JSON schemas in `schemas/`) and `MockFeedService`.
 
 ## Why mock data instead of a live API

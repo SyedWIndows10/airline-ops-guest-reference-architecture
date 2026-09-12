@@ -1,17 +1,17 @@
-# Pipeline Visualizer
+# Pipeline Visualizer (WebSocket bridge)
 
-A live view of the actual event fan-out described in [docs/diagrams/container-diagram.md](../../docs/diagrams/container-diagram.md) — not a generic Kafka topic browser, but a diagram of *this* pipeline's topology that animates as disruptions flow through it.
+A pure WebSocket bridge — it taps every topic on the bus (its own read-only consumer group) and streams events to whatever's connected. It has no frontend of its own: the live diagram lives inside the Angular app at [web/src/app/pipeline-visualizer/](../../web/src/app/pipeline-visualizer/), served as the `/pipeline` route of `web/`.
 
-It subscribes (read-only, its own consumer group) to every topic on the bus, and streams each message over WebSocket to a browser page that lights up the producing/consuming service and draws a moving dot between them, colored by `correlationId` so you can visually follow one disruption across the whole fan-out.
+It stays a separate Node process rather than living inside the browser because `kafkajs` needs a real TCP connection to the broker, which a browser can't open directly.
 
-This is an observability/demo tool — seeing "are the systems in sync" in this architecture means watching an event reach every service that's supposed to react to it, not database replication or clock sync. See [docs/04-nfr-and-security.md](../../docs/04-nfr-and-security.md#observability) for how this fits into the broader observability picture (a production build would add consumer-lag dashboards and distributed tracing alongside this).
+See [docs/diagrams/container-diagram.md](../../docs/diagrams/container-diagram.md) for the topology this bridges, and [docs/04-nfr-and-security.md](../../docs/04-nfr-and-security.md#observability) for how this fits the observability story — it's a small working stand-in for real distributed tracing.
 
 ## Running it
 
 ```bash
 npm install
 npm start
-# open http://localhost:4400
+# WebSocket bridge now listening on ws://localhost:4400
 ```
 
-Requires the infra stack (`infra/docker-compose.yml`) up and at least one of the pipeline services (`ops-event-publisher`, `crew-impact-evaluator`, etc.) producing/consuming traffic for anything to animate.
+Then run the Angular app (`cd web && npm install && npm start`) and open `http://localhost:4200/pipeline`. Requires the infra stack (`infra/docker-compose.yml`) up and at least one pipeline service producing/consuming traffic for anything to animate.
